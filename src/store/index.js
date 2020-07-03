@@ -5,6 +5,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+
 const baseURL = 'https://us-central1-ensayo-prueba.cloudfunctions.net/courses'
 function setInStorage(key, obj) {
   localStorage.setItem(key, JSON.stringify(obj))
@@ -18,8 +19,9 @@ function emptyCourse(){
     data:{
       name: '',
       description: '',
-      img: ''
-    }
+      img: '',
+    },
+    examples: {},
   }
 }
 export default new Vuex.Store({
@@ -44,13 +46,15 @@ export default new Vuex.Store({
     //   state.loading = false
     // },
     //  Obtener cursos
-    GET_COURSES(state,courses){
-    state.courses = []
-    courses.forEach((c) => {
-      c['qty'] = 1
-      state.courses.push(c)
-    })
-    state.loading = false
+    GET_COURSES(state, courses) {
+      state.courses = []
+      courses.forEach(course => {
+        course.link = course.data.name
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9 -]/, "")
+          .replace(/\s/g, "-");
+        state.courses.push(course)
+      })
     },
     // Actualizar usuario
     UPDATE_CURRENTUSER(state, user) {
@@ -74,15 +78,17 @@ export default new Vuex.Store({
       commit('LOADING_COURSES')
       //carga o no carga info
       axios.get(`${baseURL}/courses`, {headers: {"Content-type": "text/plain"}})
-      .then((accept)=> {
-        let data = accept.data;
-        commit('GET_COURSES', data)
-        
+      .then((response)=> {
+        commit('GET_COURSES', response.data)
       })
-    },
-   
+      .catch(function(error) {
+          console.log(error);
+      });
   },
-  getters: {
+  
+ 
+  },
+   getters: {
     isLoggedIn: state => !!state.currentUser,
     currentUser: state => state.currentUser
   }
