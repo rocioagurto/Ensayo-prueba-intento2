@@ -5,7 +5,6 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-
 const baseURL = 'https://us-central1-ensayo-prueba.cloudfunctions.net/courses'
 function setInStorage(key, obj) {
   localStorage.setItem(key, JSON.stringify(obj))
@@ -36,15 +35,20 @@ export default new Vuex.Store({
     search: ''
   },
 
-
   mutations: {
     // Cargando cursos
-    LOADING_COURSES(state){
-      state.loading = !state.loading
+    LOADING_COURSES(state){state.loading = true},
+    LOADING_COURSES_OFF(state){state.loading = false},
+    // Actualizar usuario
+    UPDATE_CURRENTUSER(state, user) {state.currentUser = user, setInStorage('user', user)},
+
+    SET_EMPTY_COURSE (state) {
+      state.currentCourse.id = null
+      const empty = emptyCourse()
+      Object.keys(empty.data).forEach(key => {
+        state.currentCourse.data[key] = empty.data[key]
+      })
     },
-    // LOADING_COURSES_OFF(state){
-    //   state.loading = false
-    // },
     //  Obtener cursos
     GET_COURSES(state, courses) {
       state.courses = []
@@ -56,13 +60,11 @@ export default new Vuex.Store({
         state.courses.push(course)
       })
     },
-    // Actualizar usuario
-    UPDATE_CURRENTUSER(state, user) {
-    state.currentUser = user
-    setInStorage('user', user)
-    },
+    UPDATE_NAME(state, name){state.currentCourse.data.name = name},
+    UPDATE_IMG(state, img){state.currentCourse.data.img = img},
+    UPDATE_DESCRIPTION(state, description){state.currentCourse.data.description = description},
+    SET_CURRENT_COURSE(state, course){ state.currentCourse = course }, 
   },
-
 
   actions: {
     updateUser({commit}, user){
@@ -80,16 +82,60 @@ export default new Vuex.Store({
       axios.get(`${baseURL}/courses`, {headers: {"Content-type": "text/plain"}})
       .then((response)=> {
         commit('GET_COURSES', response.data)
+        commit('SET_EMPTY_COURSE')
+        commit('LOADING_COURSES_OFF')
       })
       .catch(function(error) {
           console.log(error);
       });
-  },
-  
- 
+    },
+    postCourse({ dispatch, state}){
+      axios.post(`${baseURL}/course`, state.currentCourse.data)
+      .then(() =>{
+        dispatch('getCourses')
+      })
+    },
+    deleteCourse({ dispatch }, id){
+      axios.delete(`${baseURL}/course/${id}`)
+        .then(() => {
+          dispatch('getCourses')
+      })
+    },
+    setCurrentCourse({ commit, getters }, id){
+      // Buscar si tenemos el paciente en la lista actual
+      let targetCourse = getters.searchCourseById(id)
+      //Si lo encuentra, actualizar el currentCourse con ese paciente
+      if(targetCourse){
+        commit('SET_CURRENT_COURSE', targetCourse)
+      } else {
+        //Si no, hacer la llamada a la axios
+        axios.get(`${baseURL}/course/${id}`)
+        .then((response) => {
+          commit('SET_CURRENT_COURSE', response.data)
+        })
+      }
+    },
+    updateCourse({ state, dispatch }, id) {
+      axios.put(`${baseURL}/course/${id}`, state.currentCourse.data)
+      .then(() => {
+        dispatch('getCourses')
+      })
+    },
+    updateName({commit}, name){
+      commit('UPDATE_NAME', name)
+    },
+    updateImg({commit}, img){
+      commit('UPDATE_IMG', img)
+    },
+    updateDescription({commit}, description){
+      commit('UPDATE_DESCRIPTION', description)
+    },
   },
    getters: {
     isLoggedIn: state => !!state.currentUser,
-    currentUser: state => state.currentUser
+    currentUser: state => state.currentUser,
+    searchCourseById: (state) => (id) =>{
+      return state.courses.find(course => course.id === id)
+    }
   }
 })

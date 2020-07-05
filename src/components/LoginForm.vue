@@ -1,6 +1,6 @@
 <template>
   <div class="mt-5">
-   <div class="field text-center mb-3 text-danger">
+   <div class="text-center mb-3 text-danger">
         <!-- Mensaje en caso de datos incorrectos -->
     <span v-if="formHasErrors" class="has-text-danger">
     <i class="mdi mdi-alert "></i>
@@ -9,21 +9,23 @@
   </div>
   <b-container>
     <b-row>
-     <b-form  cols="12" md="8" class="container form  p-4 " @reset="onReset" v-if="show">
+     <b-form  cols="12" md="8" class="container form p-4 bg-dark text-white"  @reset="onReset" v-if="show">
      <!-- Titulo formulario -->
-       <h1 class="text-center">Bienvenid@!</h1>
+       <h1 class="text-center text-white mb-4">Bienvenid@!</h1>
        <b-form-group id="input-group-1" label-for="input-1">
-        <b-form-input id="input-1" data-testId="form-user" v-model="credentials.email" type="email" required
-          placeholder="Enter email">
+         <b-label> Correo Electronico: </b-label>
+        <b-form-input class="mt-2" id="input-1" data-testId="form-user" v-model="credentials.email" type="email" required
+          placeholder="chao@mail.com">
         </b-form-input>
        </b-form-group>
+       <b-label> Contraseña: </b-label>
         <b-form-group id="input-group-2" label-for="input-2">
-          <b-input type="password" id="text-password" aria-describedby="password-help-block" placeholder="Password"
+          <b-form-input class="mt-2" type="password" id="text-password" aria-describedby="password-help-block" placeholder="*************"
             v-model="credentials.password">
-          </b-input>
+          </b-form-input>
         </b-form-group>
         <div class="d-flex justify-content-between mt-5">
-          <b-button variant="dark"  v-b-modal.modal-1 @click="login">Iniciar Sesión</b-button>
+          <b-button variant="secondary"  v-b-modal.modal-1 @click="login">Iniciar Sesión</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </div>
        </b-form>
@@ -86,8 +88,8 @@ export default {
 <style lang="scss" scoped>
 .form{
   width: $ancho;
-  background: $primary;
   box-shadow: $sombra;
+  border-radius: $border
 }
 </style>
 
