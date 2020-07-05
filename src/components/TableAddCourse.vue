@@ -50,7 +50,7 @@ import { mapState, mapActions } from 'vuex'
    // Extraer productos de la base de datos (get)
    this.getCourses()
   },
-  }
+}
 </script>
 
 <style>

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <b-container>
     <course-description/>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -13,6 +13,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.container{
+  height: auto;
+  margin-bottom: 25rem;
+}
 
 </style>

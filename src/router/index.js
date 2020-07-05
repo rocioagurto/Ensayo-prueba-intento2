@@ -16,22 +16,17 @@ Vue.use(VueRouter)
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   },
-  {
-    path: '/about',
-    name: 'About',
-    alias: '/acerca',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
+  
   {
     path: '/course/:name',
     name: 'course',
     component: () => import(/* webpackChunkName: "singlecourse" */ '../views/Course.vue')
   },
   {
-    path: '/agregar-curso',
-    name: 'AddCourses',
-    alias: '/crear',
-    component: () => import(/* webpackChunkName: "agregar" */ '../views/AddCourses.vue'),
+    path: '/admin',
+    name: 'Admin',
+    alias: '/crear-curso',
+    component: () => import(/* webpackChunkName: "agregar" */ '../views/Admin.vue'),
     meta: {
       login: true
     }

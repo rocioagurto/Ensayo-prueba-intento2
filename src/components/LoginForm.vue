@@ -92,7 +92,7 @@ export default {
   border-radius: $border
 }
 .login{
-  height: 64vh;
+  height: 67vh;
 }
 </style>
 

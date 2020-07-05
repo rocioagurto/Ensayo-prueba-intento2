@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <b-container class="container"> 
       <login-form/>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -10,10 +10,6 @@ export default {
   components: {
     LoginForm
   }
-
 }
 </script>
 
-<style>
-
-</style>
