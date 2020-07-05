@@ -1,16 +1,18 @@
 <template>
-  <div id="app">
-    <nav-bar/>
- 
+  <b-main id="app">
+    <nav-bar :brand="'LIVE CODING'"/>
     <router-view/>
-  </div>
+    <Footer/>
+  </b-main>
 </template>
 
 <script>
 import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 export default {
   components:{
-    NavBar
+    NavBar,
+    Footer
   }
   
 }
@@ -22,5 +24,4 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 </style>

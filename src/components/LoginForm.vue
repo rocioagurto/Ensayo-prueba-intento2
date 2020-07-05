@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div class="my-5 mx-3 login">
    <div class="text-center mb-3 text-danger">
         <!-- Mensaje en caso de datos incorrectos -->
     <span v-if="formHasErrors" class="has-text-danger">
@@ -90,6 +90,9 @@ export default {
   width: $ancho;
   box-shadow: $sombra;
   border-radius: $border
+}
+.login{
+  height: 63vh;
 }
 </style>
 

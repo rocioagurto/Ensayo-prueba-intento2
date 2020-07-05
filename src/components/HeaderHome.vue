@@ -1,6 +1,6 @@
 <template>
 <div >
-  <b-jumbotron  class="text-white" header="Music Courses" lead="Los mejores cursos de música para aprender desde cero, los encuentras aquí!">
+  <b-jumbotron  class="text-white" header="Live Coding" lead="Los mejores cursos de música para aprender desde cero, los encuentras aquí!">
   </b-jumbotron>
      
 

@@ -28,7 +28,7 @@ Vue.use(VueRouter)
     component: () => import(/* webpackChunkName: "singlecourse" */ '../views/Course.vue')
   },
   {
-    path: '/agregar-producto',
+    path: '/agregar-curso',
     name: 'AddCourses',
     alias: '/crear',
     component: () => import(/* webpackChunkName: "agregar" */ '../views/AddCourses.vue'),

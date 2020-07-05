@@ -2,7 +2,7 @@
   <b-container >
     <b-row >
       <b-col cols="12" sm="12" md="6" lg="4"  v-for="course in courses" :key="course.id" >
-        <b-card class=" card mb-4" >
+        <b-card class=" card mt-3 mb-5" >
           <b-card-img v-bind="mainProps" :src="course.data.img">
           </b-card-img>
             <b-card-body >
@@ -11,7 +11,7 @@
                 {{course.data.description}}
               </b-card-text>
             </b-card-body>
-            <b-button href="#" variant="danger" :to="{ name: 'course', params:{ name: course.link}}">Ver curso</b-button>
+            <b-button href="#" variant="danger" class="ml-3 mb-2" :to="{ name: 'course', params:{ name: course.link}}">Ver curso</b-button>
           </b-card>
         </b-col>
       </b-row>

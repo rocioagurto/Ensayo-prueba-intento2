@@ -16,7 +16,7 @@
           <td>{{ course.data.description }}</td>
           <td>{{ course.data.img }}</td>
           <td>
-          <b-button variant="dark" @click="editCourse(course.id)" ><b-icon icon="pencil"></b-icon> </b-button> 
+          <b-button variant="secondary" @click="editCourse(course.id)" ><b-icon icon="pencil"></b-icon> </b-button> 
           </td> 
           <td>
          <b-button variant="danger" @click="removeCourse(course.id)" ><b-icon icon="trash-fill"></b-icon> </b-button>
